@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>四臂协同无感抓取 — uhduih123</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f8f6f1;--ink:#1a1c18;--green:#2d5a3d;--muted:#6a7a60;--border:#d8dcc8}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--ink);font-weight:400;line-height:1.8}
+.mono{font-family:'IBM Plex Mono',monospace}
+.container{max-width:720px;margin:0 auto;padding:0 clamp(1.5rem,4vw,2rem)}
+nav{padding:1rem 0;border-bottom:1px solid var(--border);margin-bottom:3rem}
+nav a{font-weight:700;color:var(--ink);text-decoration:none;font-size:1rem;letter-spacing:-0.02em}
+nav a:hover{color:var(--green)}
+.back{font-family:'IBM Plex Mono',monospace;font-size:0.625rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em}
+article{padding-bottom:4rem}
+.meta{font-family:'IBM Plex Mono',monospace;font-size:0.625rem;color:var(--green);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1rem}
+h1{font-size:clamp(2rem,4vw,3rem);font-weight:900;line-height:1.15;letter-spacing:-0.03em;margin-bottom:2rem}
+h2{font-size:1.5rem;font-weight:900;margin:2.5rem 0 1rem;letter-spacing:-0.02em}
+p{font-size:1rem;color:#3a3c36;margin-bottom:1.25rem}
+p.lead{font-size:1.125rem;color:var(--muted)}
+.tag-row{display:flex;gap:0.35rem;margin:1.5rem 0;flex-wrap:wrap}
+.tag{font-family:'IBM Plex Mono',monospace;font-size:0.5rem;padding:0.15rem 0.4rem;border:1px solid var(--border);color:var(--muted);text-transform:uppercase;letter-spacing:0.04em}
+footer{padding:2rem 0;border-top:1px solid var(--border);margin-top:4rem}
+footer .mono{font-size:0.625rem;color:var(--muted)}
+@media(max-width:600px){h1{font-size:1.75rem}}
+</style>
+</head>
+<body>
+<div class="container">
+<nav><a href="../index.html">uhduih123</a><br><span class="back">← Back to home</span></nav>
+<article>
+<div class="meta">2026.06.14 · 飞控</div>
+<h1>四臂协同无感抓取：飞控系统的核心挑战</h1>
+<p class="lead">单臂抓取货物的瞬间，重心全向漂移。这是所有"飞行+抓取"方案的共同噩梦——也是我们正在攻克的核心技术壁垒。</p>
+<div class="tag-row"><span class="tag">飞控</span><span class="tag">机械臂</span><span class="tag">创业</span></div>
+
+<h2>问题的本质</h2>
+<p>想象一架四旋翼无人机伸出一条机械臂去抓取一个5公斤的包裹。在爪子闭合的瞬间，飞行器的重心突然向一侧偏移了——不是几毫米，而是几厘米。飞控系统必须在几毫秒内检测到这个偏移并调整四个电机的转速来补偿，否则飞行器就会倾斜、振荡、甚至坠落。</p>
+<p>这是单臂方案的阿克琉斯之踵。无论飞控算法多精妙，单臂结构在最关键的"抓取瞬间"都会产生一个飞控系统无法实时补偿的力矩突变。</p>
+
+<h2>四臂协同的思路</h2>
+<p>我们的方案不是让飞控更努力地补偿——而是从结构层面消除这个问题。四条机械臂对称布置在机身四周，抓取时两两配对，动态互控。当手臂A伸出去抓取时，手臂C同步做一个等效力矩的反向运动。抓取的瞬间，四条臂的合力矩趋近于零。</p>
+<p>这就是"无感抓取"的核心：飞行器在抓取全程感受不到任何重心变化。</p>
+
+<h2>技术难点</h2>
+<p>说起来简单，实现起来有三个核心难点：重心估计算法需要毫秒级解算三维偏移矢量；四臂的力控需要高精度力矩传感器反馈；转运过程中负载的摆动需要AI振荡预测补偿。</p>
+<p>目前我们完成了算法方案设计和机械结构概念设计。原型机阶段的核心目标就是验证四臂协同抓取的稳定性——这是整个项目最关键的MVP。</p>
+
+<h2>竞品格局</h2>
+<p>DJI FlyCart 100 是目前最成熟的工业物流无人机，80kg载重、标配降落伞、LiDAR+毫米波雷达。但它的操作方式是绞盘吊运/投放——适合户外物流场景，不适合工厂内部精细抓取转运。这个差异就是我们切入的机会。</p>
+</article>
+<footer><span class="mono">uhduih123 · 2026</span></footer>
+</div>
+</body>
+</html>

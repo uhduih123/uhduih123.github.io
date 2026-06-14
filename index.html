@@ -1,603 +1,247 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>uhduih123 — Portfolio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --ink: #0c0c0e;
-      --paper: #e6dfd3;
-      --vermillion: #d64045;
-      --surface: #141415;
-      --surface-hover: #1c1c1e;
-      --border: rgba(230,223,211,0.08);
-      --muted: #787870;
-      --font-display: 'Noto Serif SC', 'SimSun', serif;
-      --font-body: 'IBM Plex Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-      --font-mono: 'JetBrains Mono', 'Consolas', monospace;
-      --gap: clamp(24px, 6vw, 80px);
-      --content-max: 1000px;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>uhduih123</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#f8f6f1;--ink:#1a1c18;--green:#2d5a3d;--green-light:#b8d8b0;--green-muted:#6a7a60;--border:#d8dcc8;--dark-bg:#1a1c18;--dark-text:#b0b8a0}
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--ink);font-weight:400;line-height:1.7;overflow-x:hidden}
+  .mono{font-family:'IBM Plex Mono',monospace}
+  .container{max-width:1200px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem)}
 
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem clamp(1.5rem,4vw,3rem);display:flex;justify-content:space-between;align-items:center;background:rgba(248,246,241,0.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
+  .logo{font-weight:700;font-size:1rem;letter-spacing:-0.02em}
+  .nav-links{display:flex;gap:1.5rem}
+  .nav-links a{font-family:'IBM Plex Mono',monospace;font-size:0.625rem;color:var(--green-muted);text-decoration:none;text-transform:uppercase;letter-spacing:0.1em;transition:color .2s}
+  .nav-links a:hover{color:var(--green)}
 
-    html { scroll-behavior: smooth; }
+  .hero{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;padding-top:3.5rem;position:relative}
+  .hero-left{padding:clamp(2rem,5vw,4rem);display:flex;flex-direction:column;justify-content:space-between}
+  .hero-right{background:var(--green);display:flex;align-items:flex-end;padding:clamp(2rem,5vw,4rem);position:relative;overflow:hidden}
+  .hero-right::after{content:'UHDUH';position:absolute;font-size:clamp(8rem,18vw,14rem);font-weight:900;color:rgba(248,246,241,0.05);bottom:-1.5rem;right:-1.5rem;line-height:1;font-family:'IBM Plex Mono',monospace;letter-spacing:-0.05em;pointer-events:none}
+  .hero-left .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:0.625rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--green-muted);margin-bottom:1.5rem}
+  .hero-left h1{font-size:clamp(3.5rem,8vw,6rem);font-weight:900;line-height:0.9;letter-spacing:-0.04em}
+  .hero-left h1 .box{background:var(--ink);color:var(--bg);padding:0 0.12em;display:inline-block}
+  .hero-left .sub{font-size:1rem;color:var(--green-muted);max-width:32ch;line-height:1.7;margin-top:1.5rem}
+  .hero-left .loc{font-family:'IBM Plex Mono',monospace;font-size:0.5625rem;color:#a0b898;margin-top:auto;padding-top:2rem}
+  .hero-right .stats{display:flex;flex-direction:column;gap:1.5rem;position:relative;z-index:1}
+  .hero-right .stat{border-bottom:2px solid rgba(248,246,241,0.2);padding-bottom:0.75rem}
+  .hero-right .stat .num{font-family:'IBM Plex Mono',monospace;font-size:2.5rem;font-weight:700;color:var(--green-light);line-height:1}
+  .hero-right .stat .label{font-family:'IBM Plex Mono',monospace;font-size:0.5rem;text-transform:uppercase;letter-spacing:0.12em;color:rgba(248,246,241,0.4);margin-top:0.15rem}
 
-    body {
-      font-family: var(--font-body);
-      background: var(--ink);
-      color: var(--paper);
-      line-height: 1.75;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
+  /* FUN TAG — in your face */
+  .fun-tag{font-size:clamp(6rem,18vw,16rem);font-weight:900;color:var(--green);line-height:0.85;letter-spacing:-0.06em;margin-bottom:0.5rem}
 
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      pointer-events: none;
-      opacity: 0.025;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    }
+  .hairline{height:1px;background:var(--border);width:100%}
+  section{padding:clamp(3rem,6vw,5rem) 0}
+  .tag{font-family:'IBM Plex Mono',monospace;font-size:0.5625rem;display:inline-block;border:2px solid var(--ink);padding:0.15rem 0.5rem;margin-bottom:1.5rem;letter-spacing:0.08em;text-transform:uppercase}
+  .section-title{font-size:clamp(2rem,4vw,3rem);font-weight:900;line-height:1;margin-bottom:2rem;letter-spacing:-0.03em}
 
-    .watermark {
-      position: fixed;
-      top: 50%;
-      right: -8%;
-      transform: translateY(-50%);
-      font-family: var(--font-display);
-      font-size: clamp(200px, 30vw, 500px);
-      font-weight: 900;
-      color: rgba(230,223,211,0.015);
-      pointer-events: none;
-      z-index: 0;
-      user-select: none;
-      line-height: 1;
-    }
+  .posts-list{display:flex;flex-direction:column}
+  .post{border-top:1px solid var(--border);padding:1.25rem 0;display:grid;grid-template-columns:80px 1fr;gap:1rem;align-items:baseline}
+  .post .date{font-family:'IBM Plex Mono',monospace;font-size:0.75rem;font-weight:700;color:var(--green)}
+  .post h3{font-size:1.25rem;font-weight:900;cursor:pointer;line-height:1.2;transition:color .2s}
+  .post h3 a{color:inherit;text-decoration:none}
+  .post h3:hover{color:var(--green)}
+  .post p{font-size:0.8125rem;color:var(--green-muted);margin-top:0.25rem}
+  .post .tag-row{display:flex;gap:0.35rem;margin-top:0.5rem;flex-wrap:wrap}
+  .post-tag{font-family:'IBM Plex Mono',monospace;font-size:0.5rem;padding:0.12rem 0.4rem;border:1px solid var(--border);color:var(--green-muted);text-transform:uppercase;letter-spacing:0.04em}
 
-    .container {
-      position: relative;
-      z-index: 1;
-      max-width: var(--content-max);
-      margin: 0 auto;
-      padding: 0 clamp(20px, 5vw, 60px);
-    }
+  .timeline{position:relative;padding-left:0}
+  .timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--green);transform:translateX(-50%)}
+  .tl-entry{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:3rem;position:relative}
+  .tl-entry:nth-child(even){direction:rtl}
+  .tl-entry:nth-child(even) .tl-content{direction:ltr}
+  .tl-dot{position:absolute;left:50%;top:1.5rem;width:12px;height:12px;background:var(--green);border-radius:50%;transform:translate(-50%,-50%);z-index:1}
+  .tl-meta{font-family:'IBM Plex Mono',monospace;font-size:0.5625rem;color:var(--green);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem}
+  .tl-content h3{font-size:1.5rem;font-weight:900;margin-bottom:0.5rem;line-height:1.15}
+  .tl-content p{font-size:0.875rem;color:var(--green-muted);line-height:1.7;max-width:40ch}
+  .tl-entry:nth-child(odd) .tl-content{text-align:right}
+  .tl-entry:nth-child(odd) .tl-content p{margin-left:auto}
+  .tl-entry:nth-child(odd) .tl-content .tag-row{justify-content:flex-end}
 
-    hr {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: var(--gap) 0;
-    }
+  .about-box{background:var(--dark-bg);color:var(--bg)}
+  .about-inner{max-width:1200px;margin:0 auto;padding:clamp(3rem,6vw,5rem) clamp(1.5rem,4vw,3rem);display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:start}
+  .about-inner h2{font-size:2.5rem;font-weight:900;color:var(--bg)}
+  .about-inner p{font-size:1rem;color:var(--dark-text);line-height:1.9}
+  .about-inner em{font-style:normal;color:#80c888}
+  .skills{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1.25rem}
+  .skill{font-family:'IBM Plex Mono',monospace;font-size:0.625rem;padding:0.3rem 0.7rem;border:1px solid rgba(248,246,241,0.25);color:var(--dark-text)}
 
-    /* Nav */
-    .nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      padding: 20px clamp(20px, 5vw, 60px);
-      display: flex;
-      justify-content: flex-end;
-      gap: 32px;
-      transition: background 0.4s, backdrop-filter 0.4s;
-    }
-    .nav.scrolled {
-      background: rgba(12,12,14,0.85);
-      backdrop-filter: blur(12px);
-      box-shadow: 0 1px 0 var(--border);
-    }
-    .nav a {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--muted);
-      text-decoration: none;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      transition: color 0.25s;
-      position: relative;
-    }
-    .nav a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background: var(--vermillion);
-      transition: width 0.25s;
-    }
-    .nav a:hover { color: var(--paper); }
-    .nav a:hover::after { width: 100%; }
+  .contact-row{display:flex;gap:2rem;flex-wrap:wrap}
+  .contact-link{font-family:'IBM Plex Mono',monospace;font-size:0.75rem;font-weight:700;color:var(--ink);text-decoration:none;border-bottom:2px solid var(--green);padding-bottom:0.1rem;transition:color .2s}
+  .contact-link:hover{color:var(--green)}
 
-    /* Hero */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding-top: 80px;
-    }
-    .hero-label {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--vermillion);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 24px;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.1s forwards;
-    }
-    .hero-name {
-      font-family: var(--font-display);
-      font-size: clamp(48px, 10vw, 96px);
-      font-weight: 900;
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      margin-bottom: 16px;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.25s forwards;
-    }
-    .hero-name .accent { color: var(--vermillion); }
-    .hero-sub {
-      font-family: var(--font-body);
-      font-size: clamp(16px, 2.5vw, 20px);
-      font-weight: 400;
-      color: var(--muted);
-      max-width: 480px;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.4s forwards;
-    }
-    .hero-stats {
-      display: flex;
-      gap: 48px;
-      margin-top: 48px;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.55s forwards;
-    }
-    .hero-stat { display: flex; flex-direction: column; }
-    .hero-stat-num {
-      font-family: var(--font-display);
-      font-size: clamp(32px, 5vw, 48px);
-      font-weight: 700;
-      color: var(--vermillion);
-      line-height: 1;
-    }
-    .hero-stat-label {
-      font-size: 13px;
-      color: var(--muted);
-      margin-top: 4px;
-      letter-spacing: 0.05em;
-    }
+  footer{padding:2rem 0;border-top:1px solid var(--border)}
+  footer .mono{font-size:0.625rem;color:var(--green-muted)}
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Section */
-    .section { padding: var(--gap) 0; }
-    .section-num {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--vermillion);
-      letter-spacing: 0.15em;
-      margin-bottom: 8px;
-    }
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(28px, 5vw, 40px);
-      font-weight: 700;
-      margin-bottom: 40px;
-      letter-spacing: -0.01em;
-    }
-
-    /* About */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      align-items: start;
-    }
-    .about-text {
-      font-size: 15px;
-      color: var(--muted);
-      line-height: 1.9;
-    }
-    .about-text strong { color: var(--paper); font-weight: 600; }
-    .about-image {
-      position: relative;
-      aspect-ratio: 1;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-    .about-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .about-image-placeholder {
-      font-family: var(--font-display);
-      font-size: 120px;
-      color: rgba(230,223,211,0.04);
-      font-weight: 900;
-    }
-
-    /* Projects */
-    .project {
-      border-top: 1px solid var(--border);
-      padding: 40px 0;
-      display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      gap: 48px;
-      transition: background 0.3s;
-    }
-    .project:hover { background: var(--surface-hover); }
-    .project:last-child { border-bottom: 1px solid var(--border); }
-    .project-header { display: flex; flex-direction: column; gap: 8px; }
-    .project-name {
-      font-family: var(--font-display);
-      font-size: clamp(20px, 3vw, 28px);
-      font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-    .project-tagline {
-      font-size: 13px;
-      color: var(--vermillion);
-      font-family: var(--font-mono);
-      letter-spacing: 0.05em;
-    }
-    .project-body {
-      font-size: 14px;
-      color: var(--muted);
-      line-height: 1.8;
-    }
-    .project-body p { margin-bottom: 12px; }
-    .project-body p:last-child { margin-bottom: 0; }
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 16px;
-    }
-    .tag {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      padding: 4px 10px;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      letter-spacing: 0.05em;
-      transition: border-color 0.25s, color 0.25s;
-    }
-    .tag:hover { border-color: var(--vermillion); color: var(--paper); }
-
-    /* Skills */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-    }
-    .skill-cell {
-      background: var(--surface);
-      padding: 20px 16px;
-      font-family: var(--font-mono);
-      font-size: 13px;
-      color: var(--muted);
-      letter-spacing: 0.03em;
-      transition: color 0.25s, background 0.25s;
-      cursor: default;
-    }
-    .skill-cell:hover {
-      background: var(--surface-hover);
-      color: var(--vermillion);
-    }
-
-    /* Education */
-    .edu-block {
-      border-left: 2px solid var(--vermillion);
-      padding: 8px 0 8px 24px;
-    }
-    .edu-school {
-      font-family: var(--font-display);
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-    .edu-detail {
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    /* Contact */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 24px;
-    }
-    .contact-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 24px;
-      text-decoration: none;
-      color: var(--paper);
-      transition: border-color 0.3s, transform 0.3s;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .contact-card:hover {
-      border-color: var(--vermillion);
-      transform: translateY(-2px);
-    }
-    .contact-icon { font-size: 20px; }
-    .contact-label {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-    .contact-value {
-      font-size: 15px;
-      font-weight: 500;
-      word-break: break-all;
-    }
-
-    /* Footer */
-    .footer {
-      padding: 40px 0;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 0.08em;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    /* Reveal */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .about-grid { grid-template-columns: 1fr; }
-      .project { grid-template-columns: 1fr; gap: 24px; }
-      .hero-stats { gap: 32px; }
-      .skills-grid { grid-template-columns: repeat(3, 1fr); }
-      .watermark { display: none; }
-      .nav { justify-content: center; gap: 20px; }
-    }
-  </style>
+  @media(max-width:768px){
+    .hero{grid-template-columns:1fr}
+    .hero-right{min-height:50vh}
+    .fun-tag{font-size:4rem;opacity:0.08}
+    .post{grid-template-columns:1fr;gap:0.25rem}
+    .about-inner{grid-template-columns:1fr}
+    .nav-links{gap:1rem}
+  }
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
 </head>
 <body>
 
-  <div class="watermark">構</div>
-
-  <nav class="nav" id="nav">
-    <a href="#about">About</a>
+<nav>
+  <div class="logo">uhduih123</div>
+  <div class="nav-links">
+    <a href="#writing">Writing</a>
     <a href="#projects">Projects</a>
-    <a href="#skills">Skills</a>
+    <a href="#about">About</a>
     <a href="#contact">Contact</a>
-  </nav>
-
-  <div class="container">
-
-    <section class="hero">
-      <div class="hero-label">// Portfolio</div>
-      <h1 class="hero-name">uhdui<span class="accent">h</span>123</h1>
-      <p class="hero-sub">
-        计算机科学与技术 · 从硬件到软件，从物理到虚拟。相信亲手构建是最好的学习方式。
-      </p>
-      <div class="hero-stats">
-        <div class="hero-stat">
-          <span class="hero-stat-num">10+</span>
-          <span class="hero-stat-label">年硬件经验</span>
-        </div>
-        <div class="hero-stat">
-          <span class="hero-stat-num">NAS</span>
-          <span class="hero-stat-label">自建服务集群</span>
-        </div>
-        <div class="hero-stat">
-          <span class="hero-stat-num">Docker</span>
-          <span class="hero-stat-label">容器化部署</span>
-        </div>
-      </div>
-    </section>
-
-    <hr>
-
-    <section class="section" id="about">
-      <div class="section-num reveal">01</div>
-      <h2 class="section-title reveal reveal-delay-1">关于</h2>
-      <div class="about-grid reveal reveal-delay-2">
-        <div class="about-text">
-          <p>
-            原管理学院工业工程专业，因对<strong>计算机科学与动手实践</strong>的热爱，
-            转入计算机科学与工程学院。享受从零构建完整系统的过程——从物理硬件到虚拟服务。
-          </p>
-          <p style="margin-top:16px;">
-            独立思考与技术探索是我的驱动力。相信最好的学习方式永远是<strong>亲自动手</strong>，
-            把想法变成可运行的系统，把知识转化为可触摸的成果。
-          </p>
-        </div>
-        <div class="about-image">
-          <img src="avatar.jpg" alt="avatar" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=about-image-placeholder>構</span>';">
-        </div>
-      </div>
-    </section>
-
-    <hr>
-
-    <section class="section" id="projects">
-      <div class="section-num reveal">02</div>
-      <h2 class="section-title reveal reveal-delay-1">项目</h2>
-
-      <div class="project reveal reveal-delay-2">
-        <div class="project-header">
-          <h3 class="project-name">个人 NAS & 远程服务集群</h3>
-          <p class="project-tagline">独立搭建与长期运维</p>
-        </div>
-        <div class="project-body">
-          <p>
-            基于群晖系统深度定制，独立完成 NAS 服务器的规划、部署与运维。
-            围绕 NAS 构建了一整套远程服务体系：私人云盘、个人博客、远程家庭监控、
-            影视墙（BT / PT 爬虫自动刮削影视资源 + 豆瓣信息展示，支持多平台客户端 / 网页 / SMB 直连播放）、
-            网页版在线 Office（外网可访问）等。
-          </p>
-          <p>
-            涉及内网穿透、DDNS 动态域名、反向代理、防火墙策略等站长运维技能。
-            所有服务均通过 Docker 容器化部署，便于管理、迁移与扩展。
-          </p>
-          <div class="tags">
-            <span class="tag">群晖 DSM</span><span class="tag">Docker</span><span class="tag">内网穿透</span>
-            <span class="tag">DDNS</span><span class="tag">Nginx</span><span class="tag">Python 爬虫</span>
-            <span class="tag">BT / PT</span><span class="tag">SMB</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="project reveal reveal-delay-3">
-        <div class="project-header">
-          <h3 class="project-name">灵琦AI · 微信小程序</h3>
-          <p class="project-tagline">AI 辅助全栈交付 · MVP 快速验证</p>
-        </div>
-        <div class="project-body">
-          <p>
-            采用 Hermes Agent 作为 AI 编程伙伴，通过结构化自然语言指令驱动代码生成、调试与重构；
-            将传统 2–3 周的全栈开发周期压缩至 2 天，验证了 AI 辅助编程在 MVP 阶段的效率优势。
-          </p>
-          <p>
-            设计分层 Prompt 策略（架构设计 → 模块拆分 → 代码生成 → 单元测试），
-            确保 AI 生成代码的可维护性；建立人工 Code Review 机制，对 AI 产出进行安全性、性能与业务逻辑校验。
-          </p>
-          <p>
-            对接 DeepSeek-V4-Pro API，定制人生规划场景 System Prompt；
-            封装 SSE 流式响应与 Token 成本控制方案。
-          </p>
-          <div class="tags">
-            <span class="tag">DeepSeek-V4-Pro</span><span class="tag">Hermes Agent</span>
-            <span class="tag">微信小程序</span><span class="tag">Node.js</span>
-            <span class="tag">Prompt Engineering</span><span class="tag">SSE 流式</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="project reveal">
-        <div class="project-header">
-          <h3 class="project-name">X86 硬件 DIY</h3>
-          <p class="project-tagline">近十年实战经验</p>
-        </div>
-        <div class="project-body">
-          <p>
-            独立完成从硬件选型、组装到疑难故障排查的全流程。
-            在闲鱼、校园墙等平台为他人提供装机、维修及咨询服务，积累了大量实战排故经验。
-            精通 Windows 与 Linux 双系统环境配置。
-          </p>
-          <p>
-            此外，掌握 Solidworks 建模 + Arduino 控制 + 3D 打印的完整流程，
-            曾独立完成八爪蜘蛛机器人项目。
-          </p>
-          <div class="tags">
-            <span class="tag">硬件组装</span><span class="tag">故障排查</span>
-            <span class="tag">Windows / Linux</span>
-            <span class="tag">Solidworks</span><span class="tag">Arduino</span><span class="tag">3D 打印</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <hr>
-
-    <section class="section" id="skills">
-      <div class="section-num reveal">03</div>
-      <h2 class="section-title reveal reveal-delay-1">技能</h2>
-      <div class="skills-grid reveal reveal-delay-2">
-        <div class="skill-cell">Python</div>
-        <div class="skill-cell">C</div>
-        <div class="skill-cell">HTML / CSS / JS</div>
-        <div class="skill-cell">微信小程序</div>
-        <div class="skill-cell">Docker</div>
-        <div class="skill-cell">Linux</div>
-        <div class="skill-cell">硬件 & 装机</div>
-        <div class="skill-cell">运维 & 穿透</div>
-        <div class="skill-cell">Solidworks</div>
-        <div class="skill-cell">Arduino</div>
-        <div class="skill-cell">3D 打印</div>
-        <div class="skill-cell">Prompt Eng.</div>
-      </div>
-    </section>
-
-    <hr>
-
-    <section class="section">
-      <div class="section-num reveal">04</div>
-      <h2 class="section-title reveal reveal-delay-1">教育</h2>
-      <div class="edu-block reveal reveal-delay-2">
-        <div class="edu-school">天津理工大学 · 计算机科学与技术</div>
-        <div class="edu-detail">本科 · 2025级 | CET-4 / CET-6 通过</div>
-        <div class="edu-detail">从工业工程转入 · 持续学习与成长</div>
-      </div>
-    </section>
-
-    <hr>
-
-    <section class="section" id="contact">
-      <div class="section-num reveal">05</div>
-      <h2 class="section-title reveal reveal-delay-1">联系</h2>
-      <div class="contact-grid reveal reveal-delay-2">
-        <a href="mailto:qiyian@stud.tjut.edu.cn" class="contact-card">
-          <span class="contact-icon">&#x1F4E7;</span>
-          <span class="contact-label">Email</span>
-          <span class="contact-value">qiyian@stud.tjut.edu.cn</span>
-        </a>
-        <a href="https://github.com/uhduih123" target="_blank" rel="noopener" class="contact-card">
-          <span class="contact-icon">&#x1F419;</span>
-          <span class="contact-label">GitHub</span>
-          <span class="contact-value">github.com/uhduih123</span>
-        </a>
-      </div>
-    </section>
-
-    <div class="footer">
-      <span>&copy; 2026 uhduih123</span>
-      <span>Built with intention</span>
-    </div>
-
   </div>
+</nav>
 
-  <script>
-    const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 50);
-    });
+<header class="hero">
+  <div class="hero-left">
+    <div>
+      <div class="eyebrow">CS Student · Builder · Tianjin</div>
+      <div class="fun-tag">喜欢玩</div>
+      <h1 style="font-size:clamp(2rem,4vw,3rem);font-weight:700;margin-bottom:1rem">uhdui<span class="box">h123</span></h1>
+      <p class="sub">天津理工大学 CS。从工业工程降级转来，现在在做一个无人机项目。相信好东西是做出来的，不是说出来的。</p>
+    </div>
+    <div class="loc">2025</div>
+  </div>
+  <div class="hero-right">
+    <div class="stats">
+      <div class="stat"><div class="num">02</div><div class="label">Active Projects</div></div>
+      <div class="stat"><div class="num">2025</div><div class="label">CS Enrollment</div></div>
+      <div class="stat"><div class="num">SEED</div><div class="label">Startup Round</div></div>
+    </div>
+  </div>
+</header>
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+<div class="hairline"></div>
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  </script>
+<section id="writing">
+  <div class="container">
+    <div class="tag">Writing</div>
+    <h2 class="section-title">最近的文章</h2>
+    <div class="posts-list">
+      <div class="post">
+        <div class="date">06.14</div>
+        <div>
+          <h3><a href="posts/four-arm-grasp.html">四臂协同无感抓取：飞控系统的核心挑战</a></h3>
+          <p>单臂抓取的瞬间，重心全向漂移。四臂动态互控是解法——每条臂的力矩抵消另一条，让飞行器在抓取全程保持姿态零波动。</p>
+          <div class="tag-row"><span class="post-tag">飞控</span><span class="post-tag">机械臂</span><span class="post-tag">创业</span></div>
+        </div>
+      </div>
+      <div class="post">
+        <div class="date">06.13</div>
+        <div>
+          <h3><a href="posts/ccf-opc.html">一个人，两个项目，五个评委</a></h3>
+          <p>CCF OPC 创业大赛路演。整个团队只有我在场，两个项目独自讲完。没拿奖，但值。</p>
+          <div class="tag-row"><span class="post-tag">竞赛</span><span class="post-tag">路演</span></div>
+        </div>
+      </div>
+      <div class="post">
+        <div class="date">05.27</div>
+        <div>
+          <h3><a href="posts/miniprogram-demo.html">从零搭一个微信小程序：技术选型回顾</a></h3>
+          <p>一个周末小项目——接入 DeepSeek，6页面+7组件，10小时从零到上线。</p>
+          <div class="tag-row"><span class="post-tag">小程序</span><span class="post-tag">前端</span><span class="post-tag">DeepSeek</span></div>
+        </div>
+      </div>
+      <div class="post">
+        <div class="date">05.19</div>
+        <div>
+          <h3><a href="posts/wind-blows.html">风吹到哪，树叶落到哪</a></h3>
+          <p>4月26号，转专业上机考完，坐在湖边坐了很久。风一吹，心里那点关于计算机的执念轻飘飘地散了。然后，命运的齿轮咔哒一声，转了个弯。</p>
+          <div class="tag-row"><span class="post-tag">个人</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="hairline"></div>
+
+<section id="projects">
+  <div class="container">
+    <div class="tag">Projects</div>
+    <h2 class="section-title">在做的事</h2>
+    <div class="timeline">
+      <div class="tl-entry">
+        <div class="tl-dot"></div>
+        <div></div>
+        <div class="tl-content">
+          <div class="tl-meta">2026.06.13 · CCF OPC · 路演</div>
+          <h3>CCF OPC（一人公司）创新创业大赛</h3>
+          <p>一个人扛两个项目（书海拾贝 + AI OPCS OS），面对五位来自东北大学、复旦大学、阿里通义 Lab 的专家评委完成路演。没拿奖。</p>
+          <div class="tag-row"><span class="post-tag">竞赛</span><span class="post-tag">路演</span><span class="post-tag">创业</span></div>
+        </div>
+      </div>
+      <div class="tl-entry">
+        <div class="tl-dot"></div>
+        <div></div>
+        <div class="tl-content">
+          <div class="tl-meta">2026.06.01 - 至今 · Seed Round · 联合创始人</div>
+          <h3>具身智能无人机（种子轮）</h3>
+          <p>具身智能无人机创业项目。三产品线，自研AI飞控，全系安全降落伞。4G/5G远程控制 + 分布式补能生态。</p>
+          <div class="tag-row"><span class="post-tag">飞控</span><span class="post-tag">嵌入式</span><span class="post-tag">创业</span></div>
+        </div>
+      </div>
+      <div class="tl-entry">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-meta">2026.05 · 10h · 已结项</div>
+          <h3>八字命理小程序</h3>
+          <p>一个周末小项目——接入 DeepSeek 的八字命理 Demo，6页面+7组件，暗黑鎏金风格。5.27-5.30，总耗时约 10 小时。</p>
+          <div class="tag-row"><span class="post-tag">小程序</span><span class="post-tag">前端</span><span class="post-tag">DeepSeek</span></div>
+        </div>
+        <div></div>
+      </div>
+      <div class="tl-entry">
+        <div class="tl-dot"></div>
+        <div></div>
+        <div class="tl-content">
+          <div class="tl-meta">2026.06 · Research · 发起人</div>
+          <h3>AI 认知症记忆康复</h3>
+          <p>跨学科团队（CS+软件工程+老年学+社工+心理学）。AIGC 应用于阿尔茨海默症记忆康复训练，概念设计阶段。</p>
+          <div class="tag-row"><span class="post-tag">AI</span><span class="post-tag">医疗</span><span class="post-tag">跨学科</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about-box" style="padding:0">
+  <div class="about-inner">
+    <h2>关于</h2>
+    <div>
+      <p>天津理工大学 <em>2025 级</em> 计算机科学与技术。从工业工程降级转入 CS——<em>不是跟风，是想清楚了。</em></p>
+      <p style="margin-top:1rem">写 Python，写 C，写商业计划书。目前在做的两件事：一个无人机项目的品牌与融资、AI+认知症的跨学科研究。八字命理小程序已结项，CCF OPC 路演也告一段落。对新技术有天然的好奇心，相信阳光和开放是最好的工作方式。</p>
+      <div class="skills"><span class="skill">Python</span><span class="skill">C</span><span class="skill">小程序</span><span class="skill">商业策略</span><span class="skill">技术写作</span><span class="skill">Docker</span><span class="skill">Linux</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="tag">Contact</div>
+    <h2 class="section-title">联系</h2>
+    <div class="contact-row">
+      <a href="https://github.com/uhduih123" class="contact-link">GitHub /uhduih123</a>
+      <a href="mailto:qiyian@stud.tjut.edu.cn" class="contact-link">qiyian@stud.tjut.edu.cn</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container"><span class="mono">uhduih123 · 2026</span></div>
+</footer>
+
 </body>
 </html>
