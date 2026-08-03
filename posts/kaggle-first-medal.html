@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kaggle 首战：差 0.003 的铜牌 — uhduih123</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f8f6f1;--ink:#1a1c18;--green:#2d5a3d;--muted:#6a7a60;--border:#d8dcc8}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--ink);font-weight:400;line-height:1.8}
+.mono{font-family:'IBM Plex Mono',monospace}
+.container{max-width:720px;margin:0 auto;padding:0 clamp(1.5rem,4vw,2rem)}
+nav{padding:1rem 0;border-bottom:1px solid var(--border);margin-bottom:3rem}
+nav a{font-weight:700;color:var(--ink);text-decoration:none;font-size:1rem;letter-spacing:-0.02em}
+nav a:hover{color:var(--green)}
+.back{font-family:'IBM Plex Mono',monospace;font-size:0.625rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em}
+article{padding-bottom:4rem}
+.meta{font-family:'IBM Plex Mono',monospace;font-size:0.625rem;color:var(--green);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1rem}
+h1{font-size:clamp(2rem,4vw,3rem);font-weight:900;line-height:1.15;letter-spacing:-0.03em;margin-bottom:2rem}
+h2{font-size:1.5rem;font-weight:900;margin:2.5rem 0 1rem;letter-spacing:-0.02em}
+p{font-size:1rem;color:#3a3c36;margin-bottom:1.25rem}
+p.lead{font-size:1.125rem;color:var(--muted)}
+.tag-row{display:flex;gap:0.35rem;margin:1.5rem 0;flex-wrap:wrap}
+.tag{font-family:'IBM Plex Mono',monospace;font-size:0.5rem;padding:0.15rem 0.4rem;border:1px solid var(--border);color:var(--muted);text-transform:uppercase;letter-spacing:0.04em}
+footer{padding:2rem 0;border-top:1px solid var(--border);margin-top:4rem}
+footer .mono{font-size:0.625rem;color:var(--muted)}
+@media(max-width:600px){h1{font-size:1.75rem}}
+</style>
+</head>
+<body>
+<div class="container">
+<nav><a href="../index.html">uhduih123</a><br><span class="back">← Back to home</span></nav>
+<article>
+<div class="meta">2026.08.02 · Kaggle</div>
+<h1>Kaggle 首战：差 0.003 的铜牌</h1>
+<p class="lead">92/365 队，前 25%。铜牌线 0.97006，我 0.96711——差 0.003，没拿到。但这场打得值，该踩的坑基本都踩了一遍。</p>
+<div class="tag-row"><span class="tag">Kaggle</span><span class="tag">机器学习</span><span class="tag">竞赛</span></div>
+
+<h2>为什么打 Kaggle</h2>
+<p>8 月的 Playground 赛季，主题是手机成瘾预测。我是新手，但这次定了个明确的目标：铜牌起步，必须拿一块。</p>
+<p>比赛的坑就埋在目标里——你越想拿牌，越容易在工具和模型上撒钱。这是后话。</p>
+
+<h2>数据长什么样</h2>
+<p>69 万行，12 个特征，合成数据。预测手机成瘾程度，指标是 AUC。赛题本身不复杂，卷的是特征工程和集成的深度——这恰好是表格数据的正路。</p>
+
+<h2>从 0.964 到 0.96711：三次跃迁</h2>
+<p>v1 基线 0.96404，169 名。之后每一步都用 OOF 分数说话，不靠感觉：</p>
+<p><strong>缺失增强 +0.0011</strong>——把缺失值当信息处理，而不是一清了之。这是单步增益最大的一次。</p>
+<p><strong>logit stacking +0.0007</strong>——模型输出先转成 logit 再喂给集成，比直接概率平均强。</p>
+<p><strong>决策树规则 +0.0007 / 三区规则 +0.0006</strong>——从模型里挖规则，再做后处理。</p>
+<p>到 v11：7 个模型集成，OOF 0.96562，LB 0.96711，92 名。</p>
+
+<h2>那台没用上的 GPU</h2>
+<p>为了冲分，组了台双 4090 的云 GPU，3.76 元一小时，按小时烧钱。拿来跑 TabM——表格数据的新 SOTA。结果呢？TabM 在 GPU 上跑出 0.959，比我手调的 GBM 还低一截。CPU 上更是干跑过 65 小时，白烧。</p>
+<p>Kaggle 的免费 kernel 也试了，环境里没有 CUDA 版 torch，直接放弃。</p>
+<p>钱花了，分没涨。但这是整场最值的一课：<strong>不是贵的工具就有效，表格数据的天花板在特征和集成，不在模型新不新。</strong></p>
+
+<h2>那 0.003 差在哪</h2>
+<p>铜牌线 0.97006。回头看，至少三个地方：</p>
+<p>时间管理。最后一天凌晨 00:30 我就停了，其实还有余力——差 0.003 可能就差那几个小时。</p>
+<p>伪标签试了，没用。合成数据的伪标签就是噪声。</p>
+<p>一份 top 选手的开源方案，和我的结果相关度 0.985，我判断它过拟合，直接判死。也许错了。</p>
+
+<h2>下次怎么办</h2>
+<p>经验攒下了：验证纪律（每版都跑测试套件）、止损时机、GPU 该不该上、集成怎么做。8/31 前还有新 Playground，同样的流程直接复用。</p>
+<p>目标不变：真拿一块铜牌。</p>
+</article>
+<footer><span class="mono">uhduih123 · 2026</span></footer>
+</div>
+</body>
+</html>
