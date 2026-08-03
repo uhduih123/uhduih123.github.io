@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>645 万行检测数据，全是坏的 — uhduih123</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f8f6f1;--ink:#1a1c18;--green:#2d5a3d;--muted:#6a7a60;--border:#d8dcc8}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--ink);font-weight:400;line-height:1.8}
+.mono{font-family:'IBM Plex Mono',monospace}
+.container{max-width:720px;margin:0 auto;padding:0 clamp(1.5rem,4vw,2rem)}
+nav{padding:1rem 0;border-bottom:1px solid var(--border);margin-bottom:3rem}
+nav a{font-weight:700;color:var(--ink);text-decoration:none;font-size:1rem;letter-spacing:-0.02em}
+nav a:hover{color:var(--green)}
+.back{font-family:'IBM Plex Mono',monospace;font-size:0.625rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em}
+article{padding-bottom:4rem}
+.meta{font-family:'IBM Plex Mono',monospace;font-size:0.625rem;color:var(--green);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1rem}
+h1{font-size:clamp(2rem,4vw,3rem);font-weight:900;line-height:1.15;letter-spacing:-0.03em;margin-bottom:2rem}
+h2{font-size:1.5rem;font-weight:900;margin:2.5rem 0 1rem;letter-spacing:-0.02em}
+p{font-size:1rem;color:#3a3c36;margin-bottom:1.25rem}
+p.lead{font-size:1.125rem;color:var(--muted)}
+.tag-row{display:flex;gap:0.35rem;margin:1.5rem 0;flex-wrap:wrap}
+.tag{font-family:'IBM Plex Mono',monospace;font-size:0.5rem;padding:0.15rem 0.4rem;border:1px solid var(--border);color:var(--muted);text-transform:uppercase;letter-spacing:0.04em}
+footer{padding:2rem 0;border-top:1px solid var(--border);margin-top:4rem}
+footer .mono{font-size:0.625rem;color:var(--muted)}
+@media(max-width:600px){h1{font-size:1.75rem}}
+</style>
+</head>
+<body>
+<div class="container">
+<nav><a href="../index.html">uhduih123</a><br><span class="back">← Back to home</span></nav>
+<article>
+<div class="meta">2026.08 · 实验室</div>
+<h1>645 万行检测数据，全是坏的</h1>
+<p class="lead">暑假在实验室做检测台数据分析。老师给的 2.4G 数据，清洗完 645 万行——大部分"坏的"。任务：搞清数据是怎么坏的、跟哪些参数有关，然后讲给老师听。</p>
+<div class="tag-row"><span class="tag">数据分析</span><span class="tag">实验室</span><span class="tag">Python</span></div>
+
+<h2>数据长什么样</h2>
+<p>7 台压缩机的检测台数据，每台三类文件：<strong>M</strong>（测量，每秒一行，几十列压力/温度/电压/电流/功率）、<strong>C</strong>（测试配置）、<strong>A</strong>（报警快照）。GBK 编码、tab 分隔，几千个文件。</p>
+<p>清洗后 5 台共 645 万行。第一步是把它读进来——这本身就是个体力活：编码、列名、传感器超限（200.00 = 传感器满量程）、无效列，一层一层剥。</p>
+
+<h2>"坏"在哪</h2>
+<p>老师要的是：压缩机损坏跟什么参数有关？我最初的直觉是找报警记录——结果 5 台几乎无报警（只有秒级毛刺）。说明真正的线索不是报警本身，而是报警之前参数怎么悄悄变的。</p>
+<p>比如 KLIXON（压缩机过热保护）是最危险的信号，但它跳之前，排气温度、机内温度可能已经爬升很久了。<strong>要看的不是"坏的那一刻"，是"坏之前发生了什么"。</strong></p>
+
+<h2>方法：Spearman 相关</h2>
+<p>参数之间有没有关系，用相关分析。没用 Pearson——检测台数据非正态、非单调线性，Pearson 会骗人。用 Spearman：不看具体数值，只看排名一起变不变（像"全班第几名"，而不是"考了多少分"）。</p>
+<p>对 645 万行抽样（2 万行、固定随机种子保证可复现），算 Spearman 矩阵 + 显著性检验，输出热力图和 Excel 报告。</p>
+
+<h2>一次打脸，纠正了方向</h2>
+<p>第一版结论：排温（排气温度）4/5 台在漂移下降，像是劣化信号。后来发现是误判——全量小时均值混入了停机段和工况切换，排温的大变化全是"排压档位切换"的跟随效应，不是真的漂移。</p>
+<p>修正方法：先过滤运行段（功率 > 0.5kW），再按排压档位分组，档内看时间漂移。结果：<strong>排温在同工况下几乎不漂移，机内温度 TC1 才是稳定的劣化指标</strong>（多档显著下降）。这一课值钱：分析工况数据不控工况，结论全是假的。</p>
+
+<h2>交付：给老师讲明白</h2>
+<p>最终交付不是论文，是能照念的汇报：PPT + 口语化讲稿 + 三句话总结。还准备了老师会问的问题：为什么不用 Pearson、为什么抽样、秩是什么。</p>
+<p>非技术的人（包括当时的我）最容易犯的错，是把分析做得很炫但讲不清。这次反过来：方法先用最简单的工具验证，结论用三句话能说清，才敢上台。</p>
+</article>
+<footer><span class="mono">uhduih123 · 2026</span></footer>
+</div>
+</body>
+</html>

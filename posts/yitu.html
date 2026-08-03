@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>忆途：把家人的记忆，做成能看的视频 — uhduih123</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f8f6f1;--ink:#1a1c18;--green:#2d5a3d;--muted:#6a7a60;--border:#d8dcc8}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--ink);font-weight:400;line-height:1.8}
+.mono{font-family:'IBM Plex Mono',monospace}
+.container{max-width:720px;margin:0 auto;padding:0 clamp(1.5rem,4vw,2rem)}
+nav{padding:1rem 0;border-bottom:1px solid var(--border);margin-bottom:3rem}
+nav a{font-weight:700;color:var(--ink);text-decoration:none;font-size:1rem;letter-spacing:-0.02em}
+nav a:hover{color:var(--green)}
+.back{font-family:'IBM Plex Mono',monospace;font-size:0.625rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em}
+article{padding-bottom:4rem}
+.meta{font-family:'IBM Plex Mono',monospace;font-size:0.625rem;color:var(--green);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1rem}
+h1{font-size:clamp(2rem,4vw,3rem);font-weight:900;line-height:1.15;letter-spacing:-0.03em;margin-bottom:2rem}
+h2{font-size:1.5rem;font-weight:900;margin:2.5rem 0 1rem;letter-spacing:-0.02em}
+p{font-size:1rem;color:#3a3c36;margin-bottom:1.25rem}
+p.lead{font-size:1.125rem;color:var(--muted)}
+.tag-row{display:flex;gap:0.35rem;margin:1.5rem 0;flex-wrap:wrap}
+.tag{font-family:'IBM Plex Mono',monospace;font-size:0.5rem;padding:0.15rem 0.4rem;border:1px solid var(--border);color:var(--muted);text-transform:uppercase;letter-spacing:0.04em}
+footer{padding:2rem 0;border-top:1px solid var(--border);margin-top:4rem}
+footer .mono{font-size:0.625rem;color:var(--muted)}
+@media(max-width:600px){h1{font-size:1.75rem}}
+</style>
+</head>
+<body>
+<div class="container">
+<nav><a href="../index.html">uhduih123</a><br><span class="back">← Back to home</span></nav>
+<article>
+<div class="meta">2026.08.03 · iCAN</div>
+<h1>忆途：把家人的记忆，做成能看的视频</h1>
+<p class="lead">阿尔茨海默症患者的记忆在流失。我们的想法：让家人用手机录一段往事，AI 把它变成记忆树、画面和视频——患者反复看，把记忆"看回来"。</p>
+<div class="tag-row"><span class="tag">AI</span><span class="tag">医疗</span><span class="tag">竞赛</span></div>
+
+<h2>一个正在消失的东西</h2>
+<p>阿尔茨海默症没有药到病除的解。现有的康复训练大多依赖机构、流程枯燥，家属想参与却不知道怎么做。市面上几乎没有产品，能把"家人的记忆"变成患者愿意反复看的素材。</p>
+<p>我们想做的，就是补上这一块。</p>
+
+<h2>把声音变成画面</h2>
+<p>家属用手机录音，讲一段往事——比如"我年轻的时候在村里教书"。AI 直接听懂这段语音（不用先转文字），提炼成结构化的记忆树，给每段记忆生成一张关键帧画面，再合成一段记忆视频。患者反复观看，配合提问唤起回忆。</p>
+<p>整个链路是：<strong>家属语音 → 记忆树 → 关键帧 → 记忆视频</strong>。家属贡献的只有一段录音，其余全部自动。</p>
+
+<h2>为什么是跨学科团队</h2>
+<p>这个项目不是纯技术题。AI 只是手段，干预方法是否科学才是成败关键。所以团队是 5 个人、5 个专业：计算机、软件工程、老年学、社会工作、心理学。谁来保证记忆康复的方法论站得住脚，谁来把链路实现出来，各管一段。</p>
+<p>我是技术线，负责从语音到视频的整条链路。</p>
+
+<h2>技术栈</h2>
+<p>用的国内大模型全家桶（火山引擎）：多模态采访模型直接听语音、生图模型出关键帧、视频模型出记忆视频。成本很便宜——采访一次约 ¥0，一整套演示视频也就十几块钱。</p>
+
+<h2>现状与下一步</h2>
+<p>核心代码完成，55 个测试全绿，家属端界面已按设计稿落地，应用已部署上线（aiyitu.me）。8/31 提交 iCAN 竞赛前，最后一步是配好模型密钥、跑通一条真实的演示链路。</p>
+<p>这个项目让我第一次意识到：技术文档里写"共情"很空，但当你真的在为一个病人设计界面时，共情是硬需求。</p>
+</article>
+<footer><span class="mono">uhduih123 · 2026</span></footer>
+</div>
+</body>
+</html>

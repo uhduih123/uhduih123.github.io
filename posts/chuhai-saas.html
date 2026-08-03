@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>出海匠：砍掉 AI 生成场景图之后 — uhduih123</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f8f6f1;--ink:#1a1c18;--green:#2d5a3d;--muted:#6a7a60;--border:#d8dcc8}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--ink);font-weight:400;line-height:1.8}
+.mono{font-family:'IBM Plex Mono',monospace}
+.container{max-width:720px;margin:0 auto;padding:0 clamp(1.5rem,4vw,2rem)}
+nav{padding:1rem 0;border-bottom:1px solid var(--border);margin-bottom:3rem}
+nav a{font-weight:700;color:var(--ink);text-decoration:none;font-size:1rem;letter-spacing:-0.02em}
+nav a:hover{color:var(--green)}
+.back{font-family:'IBM Plex Mono',monospace;font-size:0.625rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em}
+article{padding-bottom:4rem}
+.meta{font-family:'IBM Plex Mono',monospace;font-size:0.625rem;color:var(--green);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1rem}
+h1{font-size:clamp(2rem,4vw,3rem);font-weight:900;line-height:1.15;letter-spacing:-0.03em;margin-bottom:2rem}
+h2{font-size:1.5rem;font-weight:900;margin:2.5rem 0 1rem;letter-spacing:-0.02em}
+p{font-size:1rem;color:#3a3c36;margin-bottom:1.25rem}
+p.lead{font-size:1.125rem;color:var(--muted)}
+.tag-row{display:flex;gap:0.35rem;margin:1.5rem 0;flex-wrap:wrap}
+.tag{font-family:'IBM Plex Mono',monospace;font-size:0.5rem;padding:0.15rem 0.4rem;border:1px solid var(--border);color:var(--muted);text-transform:uppercase;letter-spacing:0.04em}
+footer{padding:2rem 0;border-top:1px solid var(--border);margin-top:4rem}
+footer .mono{font-size:0.625rem;color:var(--muted)}
+@media(max-width:600px){h1{font-size:1.75rem}}
+</style>
+</head>
+<body>
+<div class="container">
+<nav><a href="../index.html">uhduih123</a><br><span class="back">← Back to home</span></nav>
+<article>
+<div class="meta">2026.08.03 · 出海匠</div>
+<h1>出海匠：砍掉 AI 生成场景图之后</h1>
+<p class="lead">一开始我们想做"AI 生成爆款商品图"。做了一版之后发现：这是伪需求。真实的需求是"把 1688 的素材变得能上架 Ozon"。方向一改，整个产品才活过来。</p>
+<div class="tag-row"><span class="tag">SaaS</span><span class="tag">跨境电商</span><span class="tag">AI</span></div>
+
+<h2>伪需求是怎么来的</h2>
+<p>跨境卖家从 1688 进货，素材是中文水印、杂乱背景、促销文字的原始图，不能直接上俄罗斯 Ozon。我们最初的方案：用 AI 生成漂亮的场景图，让商品图"更高级"。</p>
+<p>听起来很合理。跑通一版之后翻车了——AI 重绘商品会变形：勾没了、三只胳膊、货不对板。生成一张图 5 分钟还花钱，用户看到翻车图，对整个产品失去信任。</p>
+
+<h2>重新看卖家的真实工作流</h2>
+<p>回到源头想：卖家到底缺什么？不是"更好看的图"，是"能上架的图"。</p>
+<p>1688 的图角度齐全，缺的是合规化：去中文水印、白底化、细节清晰、俄语文案。这些是刚需，AI 场景图是可选项。我们在没需求的地方用力，方向错了。</p>
+
+<h2>砍掉之后的做法</h2>
+<p>核心变成了"素材标准化"，保真优先：</p>
+<p><strong>白底主图</strong>——AI 只换背景不碰商品（已验证 100% 保真）；<strong>细节图</strong>——从白底图裁剪放大，零失真零成本；<strong>质量自检</strong>——白底/水印/主体占比/清晰度四维评分，不达标的人工介入。</p>
+<p>加上已有的俄语标题+描述生成，一个 SKU 从上传到可上架，成本实测约 ¥0.6-1.15。</p>
+
+<h2>成本与定价的教训</h2>
+<p>最初定价 1 元"场景图标配"，一算账：场景图生成要 ¥0.7 一张，配了必亏。拆开卖——基础包 1 元（白底+文案），场景图单独加购。让用户在"刚需便宜、可选功能按需付费"里自己选。</p>
+<p>另一个反思是确认环节：批量处理时让用户逐张确认是瓶颈，改成了置信度分流，只人工审核异常图。</p>
+
+<h2>现在</h2>
+<p>还在开发中，真实项目（不是竞赛）。系统是 FastAPI + 国内大模型（火山引擎 Seedream），4 级权限，SSE 实时进度，界面走 SaaS 风格。</p>
+<p>这项目教会我的：产品经理说"从用户工作流出发"不是口号。我们的第一版就是从自己的想象出发，砍掉重做才回到正轨。</p>
+</article>
+<footer><span class="mono">uhduih123 · 2026</span></footer>
+</div>
+</body>
+</html>
